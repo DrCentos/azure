@@ -1,2 +1,11 @@
-Flask==2.0.2
-gunicorn==20.1.0
+Flask
+gunicorn
+azure-identity
+azureml-defaults
+azure-storage-blob
+mlflow
+azureml-mlflow
+matplotlib
+tensorflow
+azureml-core
+azure-ai-ml
