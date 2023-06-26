@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+	  body {
+	  background-color: #f2f2f2;
+	  font-family: Arial, sans-serif;
+	  margin: 0;
+	  padding: 20px;
+	}
+
+	h1 {
+	  color: #333333;
+	  font-size: 24px;
+	  text-align: center;
+	  margin-top: 40px;
+	}
+
+	form {
+	  margin-top: 20px;
+	  text-align: center;
+	}
+
+	label {
+	  display: block;
+	  margin-bottom: 10px;
+	  font-size: 18px;
+	  color: #666666;
+	}
+
+	input[type="file"] {
+	  padding: 10px;
+	  border: 1px solid #cccccc;
+	  border-radius: 4px;
+	  width: 300px;
+	  margin-bottom: 10px;
+	}
+
+	input[type="submit"] {
+	  padding: 10px 20px;
+	  background-color: #4CAF50;
+	  color: white;
+	  border: none;
+	  border-radius: 4px;
+	  cursor: pointer;
+	  font-size: 16px;
+	}
+
+	input[type="submit"]:hover {
+	  background-color: #45a049;
+	}
+
+	img {
+	  display: block;
+	  margin: 20px auto;
+	  max-width: 500px;
+	  max-height: 500px;
+	}
+  </style>
+  <title>Upload Files</title>
+</head>
+<body>
+
+	<h1>First train</h1>
+	<form action="/train" method="POST" enctype="multipart/form-data">
+		<input type="submit" value="Train">
+	</form>
+	<hr>
+	<h1>Upload a Single Image</h1>
+	<form action="/upload" method="POST" enctype="multipart/form-data">
+		<label for="file">Choose a file:</label>
+		<input type="file" id="file" name="file" accept=".jpg,.jpeg,.png" required>
+		<img id="uploadedImage">
+		<input type="submit" value="predict">
+	</form>
+	<hr>
+	<script>
+	  function handleFileSelect(event) {
+	    const file = event.target.files[0];
+	    const reader = new FileReader();
+	    reader.onload = function(e) {
+	      const image = document.getElementById("uploadedImage");
+	      image.src = e.target.result;
+	    };
+	    reader.readAsDataURL(file);
+	  }
+
+	  document.getElementById("file").addEventListener("change", handleFileSelect);
+	</script>
+
+	<h1>Retrain with Multiple Images</h1>
+	<form action="/retrain" method="POST" enctype="multipart/form-data" onsubmit="return validateFolders()">
+		<label for="malignant">Upload a folder containing malignant images:</label>
+		<input type="file" id="malignant" name="malignant" webkitdirectory directory multiple required>
+		<br><br>
+		<label for="benign">Upload a folder containing benign images:</label>
+		<input type="file" id="benign" name="benign" webkitdirectory directory multiple required>
+		<br><br>
+		<input type="submit" value="Retrain">
+	</form>
+
+	<script>
+  function validateFolders() {
+    const malignantInput = document.getElementById("malignant");
+    const benignInput = document.getElementById("benign");
+
+    // Vérifier si les deux champs de sélection de dossier sont vides
+    if (malignantInput.files.length === 0 || benignInput.files.length === 0) {
+      alert("Veuillez sélectionner les dossiers contenant les images malignes et bénignes.");
+      return false; // Empêcher l'envoi du formulaire
+    }
+
+    // Vérifier si les deux champs de sélection de dossier contiennent des fichiers
+    if (!malignantInput.files[0] || !benignInput.files[0]) {
+      alert("Veuillez sélectionner les dossiers contenant les images malignes et bénignes.");
+      return false; // Empêcher l'envoi du formulaire
+    }
+
+    // Ajoutez d'autres vérifications personnalisées si nécessaire
+
+    return true; // Permettre l'envoi du formulaire
+  }
+</script>
+	<hr>
+	<h1>deploy an endpoint</h1>
+	<form action="/deploy" method="POST" enctype="multipart/form-data">
+		<input type="submit" value="deploy">
+	</form>
+
+	<hr>
+
+	<h1>Delete an endpoint</h1>
+	<form action="/delete" method="POST" enctype="multipart/form-data">
+		<input type="submit" value="delete">
+	</form>
+	<br><br>
