@@ -63,8 +63,9 @@ jobs:
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_76CAB119CE464F0BB65E4E6EDF372F0E }}
 
       - name: Sync files to Azure Web App
-        uses: azure/appservice-actions/webapp-sync@v2
+        uses: azure/webapps-deploy@v2
         with:
           app-name: 'nvapp'
           slot-name: 'Production'
-          source: .
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_76CAB119CE464F0BB65E4E6EDF372F0E }}
+
