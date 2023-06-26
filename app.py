@@ -7,6 +7,7 @@ import time
 import sys
 from os import path
 
+
 import os
 # Authentication package
 from azure.identity import DefaultAzureCredential
@@ -19,7 +20,7 @@ credential = DefaultAzureCredential()
 #retourne True si le model existe sinon False
 def test_model_exist(model_name):
     # Configuration de l'accès à AWS
-
+    #test2
 
     try:
         # Vérifier si le modèle existe
