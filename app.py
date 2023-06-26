@@ -7,10 +7,6 @@ import time
 import sys
 from os import path
 
-current_folder = path.dirname(path.abspath(__file__))
-import subprocess
-subprocess.check_call([sys.executable, "-m", "pip", "install", "azure-ai-ml", "azure-identity","-t", current_folder])
-
 import os
 # Authentication package
 from azure.identity import DefaultAzureCredential
